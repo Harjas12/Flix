@@ -25,7 +25,7 @@ The following **optional** user stories are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. How to create table cells that scale to the size needed
-2. Gain a better understaning of the dispatch queue and asynchronous tasks
+2. How to implement search bar functionality
 
 ## Video Walkthrough
 
@@ -41,7 +41,7 @@ The biggest challenge while creeating this app was learning how to use table vie
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2018] [Harjas Monga]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

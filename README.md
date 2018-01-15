@@ -37,7 +37,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-The biggest challenge while creeating this app was learning how to use table view controller, and custom table view cells.
+The biggest challenge while creating this app was learning how to use table view controller, and custom table view cells.
 
 ## License
 

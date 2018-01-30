@@ -221,17 +221,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cY-f8-q16" customClass="YTPlayerView">
                                 <rect key="frame" x="0.0" y="194" width="375" height="424"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="424" id="4aW-SA-hdH"/>
+                                    <constraint firstAttribute="width" constant="375" id="qAB-MN-eJf"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="7vS-mn-Eto" firstAttribute="bottom" secondItem="4cY-f8-q16" secondAttribute="bottom" constant="160" id="6NP-lz-xXR"/>
-                            <constraint firstItem="4cY-f8-q16" firstAttribute="centerY" secondItem="5Ip-bY-Hda" secondAttribute="centerY" id="XWT-9Y-wWw"/>
-                            <constraint firstItem="5HE-90-c6R" firstAttribute="leading" secondItem="7vS-mn-Eto" secondAttribute="leading" constant="20" id="gN1-fa-UKv"/>
-                            <constraint firstItem="4cY-f8-q16" firstAttribute="centerX" secondItem="5Ip-bY-Hda" secondAttribute="centerX" id="hEN-dT-OvP"/>
-                            <constraint firstItem="4cY-f8-q16" firstAttribute="leading" secondItem="5Ip-bY-Hda" secondAttribute="leading" id="lAu-Mo-7ax"/>
-                            <constraint firstItem="5HE-90-c6R" firstAttribute="top" secondItem="7vS-mn-Eto" secondAttribute="top" id="roZ-PS-7v7"/>
-                            <constraint firstItem="7vS-mn-Eto" firstAttribute="trailing" secondItem="5HE-90-c6R" secondAttribute="trailing" constant="316" id="yV1-Ex-oqU"/>
+                            <constraint firstItem="4cY-f8-q16" firstAttribute="centerY" secondItem="5Ip-bY-Hda" secondAttribute="centerY" id="5Pq-ox-73D"/>
+                            <constraint firstItem="5HE-90-c6R" firstAttribute="top" secondItem="7vS-mn-Eto" secondAttribute="top" id="BAd-n5-P3B"/>
+                            <constraint firstItem="5HE-90-c6R" firstAttribute="leading" secondItem="7vS-mn-Eto" secondAttribute="leading" constant="20" id="bfF-wz-dZZ"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5HE-90-c6R" secondAttribute="trailing" constant="20" symbolic="YES" id="jve-8D-tt4"/>
+                            <constraint firstItem="4cY-f8-q16" firstAttribute="centerX" secondItem="5Ip-bY-Hda" secondAttribute="centerX" id="zKg-zJ-Bxw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7vS-mn-Eto"/>
                     </view>

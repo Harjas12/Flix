@@ -88,6 +88,9 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell.descLabel.text = movie["overview"] as? String
         let posterUrl = URL(string: "https://image.tmdb.org/t/p/w500/" + (movie["poster_path"] as! String))!
         cell.posterImage.af_setImage(withURL: posterUrl)
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
         return cell
     }
     

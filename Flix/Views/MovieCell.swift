@@ -16,6 +16,7 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak var posterImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        descLabel.preferredMaxLayoutWidth = descLabel.frame.size.width
         // Initialization code
     }
     

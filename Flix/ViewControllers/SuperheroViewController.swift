@@ -14,8 +14,9 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var movies: [[String: Any]] = []
+    var movies: [Movie] = []
     let refreshControl = UIRefreshControl()
+    let api = MovieApiManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +43,13 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "posterCell", for: indexPath) as! PosterCell
         
         let movie = movies[indexPath.item]
-        if let posterPathString = movie["poster_path"] as? String {
-            let baseUrlPath = "https://image.tmdb.org/t/p/w500"
-            let posterPath = URL(string: baseUrlPath + posterPathString)
-            cell.posterImageView.af_setImage(withURL: posterPath!)
-            
-        }
+        cell.posterImageView.af_setImage(withURL: movie.posterUrl!)
+//        if let posterPathString = movie.posterUrl {
+//            let baseUrlPath = "https://image.tmdb.org/t/p/w500"
+//            let posterPath = URL(string: baseUrlPath + posterPathString)
+//            cell.posterImageView.af_setImage(withURL: posterPath!)
+//
+//        }
         
         
         return cell
@@ -63,9 +65,6 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     }
 
     func getData(useActivityIndicator: Bool) {
-        let url = URL(string: "https://api.themoviedb.org/3/discover/movie?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=12%2C%2028%2C%20878&without_genres=14%2C%2053")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         if useActivityIndicator {
             loadingView.isHidden = false
             activityIndicator.startAnimating()
@@ -83,14 +82,12 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         alertViewController.addAction(tryAgain)
         alertViewController.addAction(cancelAction)
         
-        let task = session.dataTask(with: request) { (data, response, error) in
+        api.superHeroMovies { (movies: [Movie]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 self.present(alertViewController, animated: true, completion: nil)
-            } else if let data = data {
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                print(dataDictionary)
-                self.movies = dataDictionary["results"] as! [[String: Any]]
+            } else if let movies = movies {
+                self.movies = movies
                 self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
             }
@@ -98,8 +95,8 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
                 self.activityIndicator.stopAnimating()
                 self.loadingView.isHidden = true
             }
+
         }
-        task.resume()
     }
     
     @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {

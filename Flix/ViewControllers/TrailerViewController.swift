@@ -15,6 +15,7 @@ class TrailerViewController: UIViewController {
     @IBOutlet weak var youtubePlayerView: YTPlayerView!
     
     var movieId: Int = 0
+    let movieApiManager = MovieApiManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +33,6 @@ class TrailerViewController: UIViewController {
     }
     
     func getData() {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/" + String(movieId) + "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         
         let alertViewController = UIAlertController(title: "Error", message: "Could not connect to Movie Database", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -44,21 +42,16 @@ class TrailerViewController: UIViewController {
         alertViewController.addAction(tryAgain)
         alertViewController.addAction(cancelAction)
         
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
+        movieApiManager.getVideoID(movieID: String(movieId)) { (videoID: String?, error: Error?) in
+            if let videoID = videoID {
+                self.youtubePlayerView.load(withVideoId: videoID)
+                self.youtubePlayerView.playVideo()
+            } else if let error = error {
                 print(error.localizedDescription)
                 self.present(alertViewController, animated: true, completion: nil)
-            } else if let data = data {
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let results = dataDictionary["results"] as! [[String: Any]]
-                let firstResult = results[0]
-                let videoId = firstResult["key"] as! String
-                self.youtubePlayerView.load(withVideoId: videoId)
-                self.youtubePlayerView.playVideo()
-
             }
         }
-        task.resume()
+
     }
 
 }
